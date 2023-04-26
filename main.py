@@ -26,23 +26,36 @@ def testing():
             if frac in prior:
                 continue
             
-            prior.add(frac)
             
             out = func(frac)
+            if out == 0:
+                continue
+
+            prior.add(frac)
             results[frac] = out
-            logging.info("Fraction: %s, Result: %s", frac, out)
+            # logging.info("Fraction: %s, Result: %s", frac, out)
+            logging.info("%s, %s", frac, out)
             
             
             
 
 def checkingIfSquareFree():
+    sameOne = set()
     for i in results:
         for j in results:
-            product = results[i] * results[j]
-            if product.denominator != 1:
+            if i == j:
+                continue
+            
+            if (i, j) in sameOne or (j, i) in sameOne:
                 continue
 
-            if gmpy.is_square(int(product)):
+            product = results[i] * results[j]
+
+            sameOne.add((i, j))
+            
+            # if gmpy.is_square(int(product)):
+            if gmpy.is_square(product.numerator) and gmpy.is_square(product.denominator):
+                
                 print("Square Free")
                 print(i, j)
                 print(results[i], results[j])
@@ -51,8 +64,9 @@ def checkingIfSquareFree():
             
             
             
-logging.basicConfig(filename='app1.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logging.basicConfig(filename='app3.log', filemode='w', format='%(message)s', level=logging.INFO)
 
 testing()
+logging.debug("Square Free")
 checkingIfSquareFree()
             
