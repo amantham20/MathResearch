@@ -1,10 +1,14 @@
 from fractions import Fraction
-import gmpy
+
+
+
+from sympy.ntheory.primetest import is_square 
 
 import logging
-
-PRODUCTIONS_UPPERBOUND = 1000
+import time 
+PRODUCTIONS_UPPERBOUND = 200
 PRODUCTIONS_LOWERBOUND = 1
+
 
 results = {}
 
@@ -28,6 +32,7 @@ def testing():
             
             
             out = func(frac)
+            
             if out == 0:
                 continue
 
@@ -35,6 +40,8 @@ def testing():
             results[frac] = out
             # logging.info("Fraction: %s, Result: %s", frac, out)
             logging.info("%s, %s", frac, out)
+            
+    del prior
             
             
             
@@ -54,19 +61,20 @@ def checkingIfSquareFree():
             sameOne.add((i, j))
             
             # if gmpy.is_square(int(product)):
-            if gmpy.is_square(product.numerator) and gmpy.is_square(product.denominator):
+            if is_square(product.numerator) and is_square(product.denominator):
                 
                 print("Square Free")
                 print(i, j)
                 print(results[i], results[j])
                 print(results[i] * results[j])
-                logging.info("SquareFree, %s, %s, %s, %s", i, j, results[i], results[j])
+                logging.info("%s, %s, %s, %s", i, j, results[i], results[j])
             
             
-            
-logging.basicConfig(filename='app3.log', filemode='w', format='%(message)s', level=logging.INFO)
-
+timeOfComputation = time.time()
+logging.basicConfig(filename=f'output/Numebers_output{timeOfComputation}.log', filemode='w', format='%(message)s', level=logging.INFO)
 testing()
+logging.basicConfig(filename=f'output/SquareFree_{timeOfComputation}.log', filemode='w', format='%(message)s', level=logging.INFO)
+logging.info("u, t, f(u), f(t)")
 logging.debug("Square Free")
 checkingIfSquareFree()
             
