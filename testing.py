@@ -1,7 +1,4 @@
 from fractions import Fraction
-import gmpy
-
-import logging
 
 
-print(gmpy.is_square(Fraction)
+print(Fraction(1, 2) == Fraction(2, 4))
