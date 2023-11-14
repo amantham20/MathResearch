@@ -19,7 +19,7 @@ def func(x):
 
 def testing():
     prior = set()
-    
+    start_time = time.perf_counter()
     for i in range(PRODUCTIONS_LOWERBOUND, PRODUCTIONS_UPPERBOUND): 
         for j in range(i, PRODUCTIONS_UPPERBOUND): #Deneominator 
             
@@ -38,10 +38,13 @@ def testing():
             # prior.add(frac)
             results[frac] = out
             # logging.info("Fraction: %s, Result: %s", frac, out)
+
             logging.info("%s, %s", frac, out)
 
         if (i % (PRODUCTIONS_UPPERBOUND/100) == 0):
             print(f"Done with {i} iterations")
+            curr_time = time.perf_counter()
+            print(f"Time elapsed: {(curr_time - start_time)} seconds")
             
     del prior
             
@@ -116,11 +119,16 @@ timeOfComputation = time.time()
 # format the time into date_time
 timeOfComputation = time.strftime("%Y %m %d-%H %M %S")
 
-logging.basicConfig(filename=f'output/Numebers_output{timeOfComputation}.log', filemode='w', format='%(message)s', level=logging.INFO)
+logging.basicConfig(filename=f'Numbers/Numbers_output{timeOfComputation}.log', filemode='w', format='%(message)s', level=logging.INFO)
+startTime = time.perf_counter()
 testing()
-print("Done with generating the numbers")
-# logging.basicConfig(filename=f'output/SquareFree_{timeOfComputation}.log', filemode='w', format='%(message)s', level=logging.INFO)
-logging.info("u, t, f(u), f(t)")
-logging.debug("Square Free")
-checkingIfSquareFree()
+
+endTime = time.perf_counter()
+print(f"Total time: {endTime - startTime} seconds")
+
+# print("Done with generating the numbers")
+# # logging.basicConfig(filename=f'output/SquareFree_{timeOfComputation}.log', filemode='w', format='%(message)s', level=logging.INFO)
+# logging.info("u, t, f(u), f(t)")
+# logging.debug("Square Free")
+# checkingIfSquareFree()
             
