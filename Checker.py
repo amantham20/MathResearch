@@ -2,21 +2,13 @@ from fractions import Fraction
 from sympy.ntheory.primetest import is_square
 
 import subprocess
-
+import time
 
 
 
 def process_result(i, j, val_i, val_j):
 
-    # if (i, j) in sameOne or (j, i) in sameOne:
-    #     return
-
-    # if i == Fraction(1, 1-j) or j == Fraction(1, 1-i) or i == Fraction(1, j-1) or j == Fraction(1, i-1):
-    #     return
-
     product = val_i * val_j
-
-    # sameOne.add((i, j))
 
     if is_square(product.numerator) and is_square(product.denominator):
         print("Square Free")
@@ -29,7 +21,7 @@ def main():
 
 
 
-    filename = 'Numbers/NumberAndOut500.log'
+    filename = 'Numbers/NumberAndOut100.log'
 
     numberoflines = int(subprocess.check_output('wc -l ' + filename, shell=True).split()[0])
     print(numberoflines)
