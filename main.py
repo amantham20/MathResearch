@@ -6,7 +6,7 @@ from sympy.ntheory.primetest import is_square
 import math
 import logging
 import time 
-PRODUCTIONS_UPPERBOUND = 100
+PRODUCTIONS_UPPERBOUND = 200
 PRODUCTIONS_LOWERBOUND = 1
 
 
