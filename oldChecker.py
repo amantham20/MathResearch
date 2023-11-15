@@ -4,6 +4,8 @@ from sympy.ntheory.primetest import is_square
 import subprocess
 
 import time
+from tqdm import tqdm
+import logging
 
 # import os
 # import psutil
@@ -35,28 +37,22 @@ import time
 
 def process_result(i, j, val_i, val_j):
 
-    # if (i, j) in sameOne or (j, i) in sameOne:
-    #     return
-
-    # if i == Fraction(1, 1-j) or j == Fraction(1, 1-i) or i == Fraction(1, j-1) or j == Fraction(1, i-1):
-    #     return
-
     product = val_i * val_j
 
-    # sameOne.add((i, j))
+
 
     if is_square(product.numerator) and is_square(product.denominator):
         print("Square Free")
         print(i, j)
         print(val_i, val_j)
         print(val_i* val_j)
-        # logging.info("%s, %s, %s, %s", i, j, results[i], results[j])
+        logging.info("%s, %s, %s, %s", i, j, val_i, val_j)
 
 def main():
 
 
 
-    filename = 'Numbers/NumberAndOut200.log'
+    filename = 'Numbers/NumberAndOut1000.log'
 
     numberoflines = int(subprocess.check_output('wc -l ' + filename, shell=True).split()[0])
     print(numberoflines)
@@ -65,22 +61,30 @@ def main():
 
     startTime = time.perf_counter()
 
+
+    timeOfComputation = str(time.strftime("%Y %m %d-%H %M %S"))
+    logging.basicConfig(filename=f'output/SquareFree_{timeOfComputation}.log', filemode='w', format='%(message)s', level=logging.INFO)
+    
+    logging.info("u, t, f(u), f(t)")
+
     with open(filename, 'r') as file1:
+        progress = tqdm(total=numberoflines, desc="Processing", unit="line")
         for line1 in file1:
             temp1 = line1
             line1 = line1.split(',')
             with open(filename, 'r') as file2:
                 for line2 in file2:
                     if temp1 == line2:
-                        i += 1
-                        if ( i % (numberoflines//100) == 0):
-                            print( i/numberoflines * 100, "%")
+                        # i += 1
+                        # if ( i % (numberoflines//100) == 0):
+                        #     print( i/numberoflines * 100, "%")
                         break
                     
                     line2 = line2.split(',')
                     process_result(line1[0], line2[0], Fraction(line1[1]), Fraction(line2[1]))
                     # counts += 1
 
+            progress.update(1)
 
 
     endTime = time.perf_counter()

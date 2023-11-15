@@ -24,11 +24,11 @@ def process_file_pairs(filename, line1, index, progress):
     progress.update(1)  # Update progress for each completed line
 
 def main():
-    filename = 'Numbers/NumberAndOut200.log'
+    filename = 'Numbers/NumberAndOut150.log'
     number_of_lines = int(subprocess.check_output('wc -l ' + filename, shell=True).split()[0])
     print(number_of_lines)
     
-    max_threads = 8
+    max_threads = 1
     startTime = time.perf_counter()
 
     with open(filename, 'r') as file1, concurrent.futures.ThreadPoolExecutor(max_workers=max_threads) as executor:

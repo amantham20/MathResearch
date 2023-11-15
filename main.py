@@ -6,7 +6,7 @@ from sympy.ntheory.primetest import is_square
 import math
 import logging
 import time 
-PRODUCTIONS_UPPERBOUND = 200
+PRODUCTIONS_UPPERBOUND = 150
 PRODUCTIONS_LOWERBOUND = 1
 
 
@@ -119,7 +119,7 @@ timeOfComputation = time.time()
 # format the time into date_time
 timeOfComputation = time.strftime("%Y %m %d-%H %M %S")
 
-logging.basicConfig(filename=f'Numbers/Numbers_output{timeOfComputation}.log', filemode='w', format='%(message)s', level=logging.INFO)
+logging.basicConfig(filename=f'Numbers/NumberAndOut{PRODUCTIONS_UPPERBOUND}.log', filemode='w', format='%(message)s', level=logging.INFO)
 startTime = time.perf_counter()
 testing()
 
